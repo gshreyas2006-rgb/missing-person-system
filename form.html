@@ -1,0 +1,89 @@
+<form onsubmit="return submitForm()">
+
+    <div class="input-group">
+        <label>Name</label>
+        <input type="text" id="name" required>
+    </div>
+
+    <div class="input-group">
+        <label>Age</label>
+        <input type="number" id="age" required>
+    </div>
+
+    <div class="input-group">
+        <label>Last Seen Location</label>
+        <input type="text" id="location" required>
+    </div>
+
+    <div class="input-group">
+        <label>Aadhaar ID</label>
+        <input type="text" id="aadhaar" required>
+    </div>
+
+    <div class="input-group">
+        <label>Type</label>
+        <select id="type" required>
+            <option value="">Select</option>
+            <option>Missing</option>
+            <option>Wanted</option>
+        </select>
+    </div>
+
+    <div class="file">
+        Upload Image
+        <input type="file" id="image" onchange="previewImage(event)">
+    </div>
+
+    <img id="preview">
+
+    <button type="submit">Submit Report</button>
+
+    <p id="msg" class="msg"></p>
+
+</form>
+
+<script>
+function previewImage(event) {
+    let img = document.getElementById("preview");
+    img.src = URL.createObjectURL(event.target.files[0]);
+    img.style.display = "block";
+}
+
+function submitForm() {
+    let name = document.getElementById("name").value;
+    let age = document.getElementById("age").value;
+    let location = document.getElementById("location").value;
+    let aadhaar = document.getElementById("aadhaar").value;
+    let type = document.getElementById("type").value;
+    let image = document.getElementById("preview").src;
+
+    // Create report object
+    let report = {
+        name,
+        age,
+        location,
+        aadhaar,
+        type,
+        image,
+        status: "Pending"
+    };
+
+    // Get existing reports
+    let reports = JSON.parse(localStorage.getItem("reports")) || [];
+
+    // Add new report
+    reports.push(report);
+
+    // Save back
+    localStorage.setItem("reports", JSON.stringify(reports));
+
+    document.getElementById("msg").style.color = "lightgreen";
+    document.getElementById("msg").innerText = "Report submitted successfully!";
+
+    setTimeout(() => {
+        window.location.href = "dashboard.html";
+    }, 1000);
+
+    return false;
+}
+</script>

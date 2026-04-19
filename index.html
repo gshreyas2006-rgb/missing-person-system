@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Missing & Wanted Person Reporting System</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: white;
+    text-align: center;
+}
+
+header {
+    padding: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    background: rgba(0,0,0,0.4);
+    letter-spacing: 1px;
+}
+
+.container {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 50px 40px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    width: 380px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.card h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #ccc;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 17px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.report-btn {
+    background: #ff4b2b;
+    color: white;
+}
+
+.report-btn:hover {
+    background: #ff2e0f;
+    transform: scale(1.04);
+}
+
+.admin-btn {
+    background: #00c6ff;
+    color: white;
+}
+
+.admin-btn:hover {
+    background: #0096cc;
+    transform: scale(1.04);
+}
+
+.footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    font-size: 14px;
+    color: #aaa;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    Missing & Wanted Person Reporting System
+</header>
+
+<div class="container">
+    <div class="card">
+        <h1>Report Faster</h1>
+        <p>Secure platform for missing & wanted person reporting</p>
+
+        <button class="btn report-btn" onclick="goToReport()">
+            Report Missing / Wanted Person
+        </button>
+
+        <button class="btn admin-btn" onclick="goToAdmin()">
+            Admin Login
+        </button>
+    </div>
+</div>
+
+<div class="footer">
+    © 2026 Missing Person Reporting System
+</div>
+
+<script>
+function goToReport() {
+    window.location.href = "login.html";
+}
+
+function goToAdmin() {
+    window.location.href = "admin-login.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<div class="grid" id="reportsContainer">
+    <!-- Reports will load here -->
+</div>
+
+<script>
+function goBack() {
+    window.location.href = "dashboard.html";
+}
+
+// LOAD REPORTS FROM localStorage
+let reports = JSON.parse(localStorage.getItem("reports")) || [];
+
+let container = document.getElementById("reportsContainer");
+
+if (reports.length === 0) {
+    container.innerHTML = "<p>No reports submitted yet.</p>";
+} else {
+    reports.forEach(report => {
+
+        let statusClass = "pending";
+        if (report.status === "Approved") statusClass = "approved";
+        if (report.status === "Rejected") statusClass = "rejected";
+
+        container.innerHTML += `
+            <div class="card">
+                <img src="${report.image}">
+                <h3>${report.name}</h3>
+                <p>Age: ${report.age}</p>
+                <p>Location: ${report.location}</p>
+                <p>Type: ${report.type}</p>
+                <div class="status ${statusClass}">${report.status}</div>
+            </div>
+        `;
+    });
+}
+</script>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* SAME CSS (unchanged) */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+body {
+    height: 100vh;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    display: flex;
+    color: white;
+}
+
+.container { display: flex; width: 100%; }
+
+.left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content { text-align: center; }
+
+.content h1 { font-size: 36px; }
+
+.content p { opacity: 0.8; }
+
+.right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 380px;
+    padding: 30px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.input-group { position: relative; margin-bottom: 18px; }
+
+.input-group input {
+    width: 100%;
+    padding: 12px 40px 12px 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    background: transparent;
+    color: white;
+}
+
+.input-group label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #ccc;
+    transition: 0.3s;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+    top: -8px;
+    font-size: 12px;
+    color: #ff4b2b;
+}
+
+.input-group i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #ff4b2b;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+}
+
+.small-btn {
+    background: #203a43;
+    font-size: 13px;
+}
+
+.link { margin-top: 10px; }
+
+.link a { color: #00c6ff; }
+
+.error { font-size: 13px; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="left">
+    <div class="content">
+        <h1>Create Account</h1>
+        <p>Secure registration with OTP verification</p>
+    </div>
+</div>
+
+<div class="right">
+<div class="card">
+
+<h2>Register</h2>
+
+<form onsubmit="return registerUser()">
+
+<div class="input-group">
+    <input type="text" id="name" required>
+    <label>Full Name</label>
+</div>
+
+<div class="input-group">
+    <input type="email" id="email" required>
+    <label>Email</label>
+</div>
+
+<div class="input-group">
+    <input type="text" id="phone" required>
+    <label>Phone</label>
+</div>
+
+<button type="button" class="small-btn" onclick="sendOTP()">Send OTP</button>
+
+<div class="input-group">
+    <input type="text" id="otp">
+    <label>Enter OTP</label>
+</div>
+
+<div class="input-group">
+    <input type="text" id="aadhaar" required>
+    <label>Aadhaar ID</label>
+</div>
+
+<div class="input-group">
+    <input type="password" id="pass" required>
+    <label>Password</label>
+</div>
+
+<div class="input-group">
+    <input type="password" id="confirm" required>
+    <label>Confirm Password</label>
+</div>
+
+<p id="msg" class="error"></p>
+
+<button type="submit">Register</button>
+
+</form>
+
+<p class="link">
+Already have an account?
+<a href="login.html">Login</a>
+</p>
+
+</div>
+</div>
+
+</div>
+
+<script>
+let generatedOTP = "";
+
+function sendOTP() {
+    let phone = document.getElementById("phone").value;
+
+    if (phone.length !== 10) {
+        alert("Enter valid phone number");
+        return;
+    }
+
+    generatedOTP = Math.floor(100000 + Math.random() * 900000);
+    alert("Your OTP is: " + generatedOTP);
+}
+
+function registerUser() {
+    let otp = document.getElementById("otp").value;
+    let pass = document.getElementById("pass").value;
+    let confirm = document.getElementById("confirm").value;
+
+    if (generatedOTP === "") {
+        document.getElementById("msg").innerText = "Please generate OTP first";
+        return false;
+    }
+
+    if (otp != generatedOTP) {
+        document.getElementById("msg").innerText = "Invalid OTP";
+        return false;
+    }
+
+    if (pass !== confirm) {
+        document.getElementById("msg").innerText = "Passwords do not match";
+        return false;
+    }
+
+    document.getElementById("msg").style.color = "lightgreen";
+    document.getElementById("msg").innerText = "Registered Successfully";
+
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 1000);
+
+    return false;
+}
+</script>
+
+</body>
+</html>

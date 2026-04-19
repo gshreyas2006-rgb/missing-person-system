@@ -1,0 +1,49 @@
+<!-- ONLY UPDATE THE FORM + SCRIPT PART -->
+
+<form onsubmit="return adminLogin()">
+
+    <div class="input-group">
+        <input type="text" id="adminUser" required>
+        <label>Admin Username</label>
+        <i class="fa fa-user-shield"></i>
+    </div>
+
+    <div class="input-group">
+        <input type="password" id="pass" required>
+        <label>Password</label>
+        <i class="fa fa-lock"></i>
+        <i class="fa fa-eye toggle" onclick="togglePassword()"></i>
+    </div>
+
+    <p id="msg" class="error"></p>
+
+    <button type="submit">Login</button>
+
+</form>
+
+<script>
+function togglePassword() {
+    let field = document.getElementById("pass");
+    field.type = field.type === "password" ? "text" : "password";
+}
+
+function adminLogin() {
+    let username = document.getElementById("adminUser").value;
+    let password = document.getElementById("pass").value;
+
+    // PREDEFINED ADMIN CREDENTIALS
+    if (username === "admin" && password === "admin123") {
+        document.getElementById("msg").style.color = "lightgreen";
+        document.getElementById("msg").innerText = "Login successful!";
+
+        setTimeout(() => {
+            window.location.href = "admin-dashboard.html";
+        }, 800);
+    } else {
+        document.getElementById("msg").style.color = "red";
+        document.getElementById("msg").innerText = "Invalid admin credentials";
+    }
+
+    return false;
+}
+</script>

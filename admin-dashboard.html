@@ -1,0 +1,65 @@
+<div class="grid" id="adminContainer">
+    <!-- Reports will load here -->
+</div>
+
+<script>
+function logout() {
+    window.location.href = "admin-login.html";
+}
+
+// LOAD REPORTS
+let reports = JSON.parse(localStorage.getItem("reports")) || [];
+let container = document.getElementById("adminContainer");
+
+function displayReports() {
+    container.innerHTML = "";
+
+    if (reports.length === 0) {
+        container.innerHTML = "<p>No reports available</p>";
+        return;
+    }
+
+    reports.forEach((report, index) => {
+
+        let statusClass = "pending";
+        if (report.status === "Approved") statusClass = "approved";
+        if (report.status === "Rejected") statusClass = "rejected";
+
+        container.innerHTML += `
+            <div class="card">
+                <img src="${report.image}">
+                <h3>${report.name}</h3>
+                <p>Age: ${report.age}</p>
+                <p>Last Seen: ${report.location}</p>
+                <p>Type: ${report.type}</p>
+
+                <div class="status ${statusClass}">
+                    ${report.status}
+                </div>
+
+                <div class="actions">
+                    <button class="approve" onclick="approve(${index})">Approve</button>
+                    <button class="reject" onclick="reject(${index})">Reject</button>
+                </div>
+            </div>
+        `;
+    });
+}
+
+// APPROVE
+function approve(index) {
+    reports[index].status = "Approved";
+    localStorage.setItem("reports", JSON.stringify(reports));
+    displayReports();
+}
+
+// REJECT
+function reject(index) {
+    reports[index].status = "Rejected";
+    localStorage.setItem("reports", JSON.stringify(reports));
+    displayReports();
+}
+
+// INITIAL LOAD
+displayReports();
+</script>
