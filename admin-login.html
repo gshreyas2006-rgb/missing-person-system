@@ -1,25 +1,182 @@
-<!-- ONLY UPDATE THE FORM + SCRIPT PART -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
 
-<form onsubmit="return adminLogin()">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <div class="input-group">
-        <input type="text" id="adminUser" required>
-        <label>Admin Username</label>
-        <i class="fa fa-user-shield"></i>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+/* 🌌 SAME GRADIENT */
+body {
+    height: 100vh;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    display: flex;
+    color: white;
+}
+
+/* LAYOUT */
+.container {
+    display: flex;
+    width: 100%;
+}
+
+/* LEFT */
+.left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    text-align: center;
+}
+
+.content h1 {
+    font-size: 36px;
+}
+
+.content p {
+    opacity: 0.8;
+}
+
+/* RIGHT */
+.right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🔥 GLASS CARD */
+.card {
+    width: 360px;
+    padding: 30px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+/* INPUT */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 40px 12px 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    background: transparent;
+    color: white;
+}
+
+.input-group label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #ccc;
+    transition: 0.3s;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+    top: -8px;
+    font-size: 12px;
+    color: #ff4b2b;
+}
+
+.input-group i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.toggle {
+    right: 35px;
+    cursor: pointer;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #ff4b2b;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff2e0f;
+}
+
+/* ERROR */
+.error {
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="left">
+    <div class="content">
+        <h1>Admin Panel</h1>
+        <p>Secure login for report verification and management.</p>
     </div>
+</div>
 
-    <div class="input-group">
-        <input type="password" id="pass" required>
-        <label>Password</label>
-        <i class="fa fa-lock"></i>
-        <i class="fa fa-eye toggle" onclick="togglePassword()"></i>
+<div class="right">
+    <div class="card">
+
+        <h2>Admin Login</h2>
+
+        <form onsubmit="return adminLogin()">
+
+            <div class="input-group">
+                <input type="text" id="adminUser" required>
+                <label>Admin Username</label>
+                <i class="fa fa-user-shield"></i>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="pass" required>
+                <label>Password</label>
+                <i class="fa fa-lock"></i>
+                <i class="fa fa-eye toggle" onclick="togglePassword()"></i>
+            </div>
+
+            <p id="msg" class="error"></p>
+
+            <button type="submit">Login</button>
+
+        </form>
+
     </div>
+</div>
 
-    <p id="msg" class="error"></p>
-
-    <button type="submit">Login</button>
-
-</form>
+</div>
 
 <script>
 function togglePassword() {
@@ -28,22 +185,27 @@ function togglePassword() {
 }
 
 function adminLogin() {
-    let username = document.getElementById("adminUser").value;
-    let password = document.getElementById("pass").value;
+    let user = document.getElementById("adminUser").value;
+    let pass = document.getElementById("pass").value;
 
-    // PREDEFINED ADMIN CREDENTIALS
-    if (username === "admin" && password === "admin123") {
+    // DEMO ADMIN LOGIN
+    if (user === "admin" && pass === "admin123") {
+
         document.getElementById("msg").style.color = "lightgreen";
         document.getElementById("msg").innerText = "Login successful!";
 
         setTimeout(() => {
             window.location.href = "admin-dashboard.html";
         }, 800);
+
     } else {
         document.getElementById("msg").style.color = "red";
-        document.getElementById("msg").innerText = "Invalid admin credentials";
+        document.getElementById("msg").innerText = "Invalid credentials";
     }
 
     return false;
 }
 </script>
+
+</body>
+</html>
