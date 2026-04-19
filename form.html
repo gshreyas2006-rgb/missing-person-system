@@ -1,89 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report Case</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
+
+body {
+    height:100vh;
+    background:linear-gradient(to right,#0f2027,#203a43,#2c5364);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+.card {
+    width:420px;
+    padding:30px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    border-radius:12px;
+}
+
+.card h2 { text-align:center; margin-bottom:20px; }
+
+.input-group { margin-bottom:18px; }
+
+.input-group input,
+.input-group select {
+    width:100%;
+    padding:12px;
+    border-radius:6px;
+    background:transparent;
+    color:white;
+    border:1px solid rgba(255,255,255,0.2);
+}
+
+label { font-size:14px; color:#ccc; }
+
+#preview {
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:8px;
+    margin-top:10px;
+    display:none;
+}
+
+button {
+    width:100%;
+    padding:12px;
+    background:#ff4b2b;
+    border:none;
+    border-radius:6px;
+    color:white;
+    cursor:pointer;
+}
+
+.msg { text-align:center; margin-top:10px; }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Report Missing / Wanted Person</h2>
+
 <form onsubmit="return submitForm()">
 
-    <div class="input-group">
-        <label>Name</label>
-        <input type="text" id="name" required>
-    </div>
+<div class="input-group">
+<label>Name</label>
+<input type="text" id="name" required>
+</div>
 
-    <div class="input-group">
-        <label>Age</label>
-        <input type="number" id="age" required>
-    </div>
+<div class="input-group">
+<label>Age</label>
+<input type="number" id="age" required>
+</div>
 
-    <div class="input-group">
-        <label>Last Seen Location</label>
-        <input type="text" id="location" required>
-    </div>
+<div class="input-group">
+<label>Last Seen Location</label>
+<input type="text" id="location" required>
+</div>
 
-    <div class="input-group">
-        <label>Aadhaar ID</label>
-        <input type="text" id="aadhaar" required>
-    </div>
+<div class="input-group">
+<label>Aadhaar ID</label>
+<input type="text" id="aadhaar" required>
+</div>
 
-    <div class="input-group">
-        <label>Type</label>
-        <select id="type" required>
-            <option value="">Select</option>
-            <option>Missing</option>
-            <option>Wanted</option>
-        </select>
-    </div>
+<div class="input-group">
+<label>Type</label>
+<select id="type" required>
+<option value="">Select</option>
+<option>Missing</option>
+<option>Wanted</option>
+</select>
+</div>
 
-    <div class="file">
-        Upload Image
-        <input type="file" id="image" onchange="previewImage(event)">
-    </div>
+<div class="input-group">
+<label>Upload Image</label>
+<input type="file" id="image" onchange="previewImage(event)">
+</div>
 
-    <img id="preview">
+<img id="preview">
 
-    <button type="submit">Submit Report</button>
+<button type="submit">Submit Report</button>
 
-    <p id="msg" class="msg"></p>
+<p id="msg" class="msg"></p>
 
 </form>
 
+</div>
+
 <script>
-function previewImage(event) {
+function previewImage(event){
     let img = document.getElementById("preview");
     img.src = URL.createObjectURL(event.target.files[0]);
     img.style.display = "block";
 }
 
-function submitForm() {
-    let name = document.getElementById("name").value;
-    let age = document.getElementById("age").value;
-    let location = document.getElementById("location").value;
-    let aadhaar = document.getElementById("aadhaar").value;
-    let type = document.getElementById("type").value;
-    let image = document.getElementById("preview").src;
+function submitForm(){
 
-    // Create report object
     let report = {
-        name,
-        age,
-        location,
-        aadhaar,
-        type,
-        image,
+        name: document.getElementById("name").value,
+        age: document.getElementById("age").value,
+        location: document.getElementById("location").value,
+        aadhaar: document.getElementById("aadhaar").value,
+        type: document.getElementById("type").value,
+        image: document.getElementById("preview").src,
         status: "Pending"
     };
 
-    // Get existing reports
     let reports = JSON.parse(localStorage.getItem("reports")) || [];
-
-    // Add new report
     reports.push(report);
-
-    // Save back
     localStorage.setItem("reports", JSON.stringify(reports));
 
     document.getElementById("msg").style.color = "lightgreen";
     document.getElementById("msg").innerText = "Report submitted successfully!";
 
-    setTimeout(() => {
+    setTimeout(()=>{
         window.location.href = "dashboard.html";
-    }, 1000);
+    },1000);
 
     return false;
 }
 </script>
+
+</body>
+</html>
